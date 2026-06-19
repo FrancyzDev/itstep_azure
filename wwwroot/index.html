@@ -5,51 +5,214 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Items Manager</title>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: #f0f2f5; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #1a73e8; text-align: center; }
-        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
-        button { background: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
-        button:hover { background: #1557b0; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #1a73e8; color: white; }
-        .delete-btn { background: #dc3545; padding: 6px 12px; font-size: 12px; }
-        .delete-btn:hover { background: #c82333; }
-        .error { color: red; margin-top: 10px; }
-        .success { color: green; margin-top: 10px; }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+            input[type="file"] {
+                padding: 8px;
+            }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+            .form-row .form-group {
+                flex: 1;
+                min-width: 200px;
+            }
+
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+            button:hover {
+                background: #1557b0;
+            }
+
+            button:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+        .delete-btn {
+            background: #dc3545;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+            .delete-btn:hover {
+                background: #c82333;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .error {
+            color: #dc3545;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8d7da;
+            border-radius: 6px;
+        }
+
+        .success {
+            color: #155724;
+            margin-top: 10px;
+            padding: 10px;
+            background: #d4edda;
+            border-radius: 6px;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .no-image {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .image-cell {
+            text-align: center;
+            width: 80px;
+        }
+
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .price-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📦 Items Manager</h1>
-        
+
         <div class="card">
-            <h2>➕ Додати новий товар</h2>
-            <div class="form-group">
-                <label>Назва</label>
-                <input type="text" id="name" placeholder="Введіть назву товару">
-            </div>
-            <div class="form-group">
-                <label>Ціна (грн)</label>
-                <input type="number" id="price" placeholder="0">
-            </div>
-            <button onclick="createItem()">➕ Додати</button>
-            <div id="formMessage"></div>
+            <h2>➕ Add New Item</h2>
+            <form id="createForm" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="name" placeholder="Enter item name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (UAH) *</label>
+                        <input type="number" id="price" placeholder="0" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>📷 Image (PNG or JPG)</label>
+                    <input type="file" id="imageFile" accept="image/png,image/jpeg,image/jpg">
+                    <small style="color: #666;">Allowed: PNG, JPG, JPEG</small>
+                </div>
+                <button type="submit" id="submitBtn">➕ Add Item</button>
+                <div id="formMessage"></div>
+            </form>
         </div>
 
         <div class="card">
-            <h2>📋 Список товарів</h2>
-            <table id="itemsTable">
-                <thead>
-                    <tr><th>ID</th><th>Назва</th><th>Опис</th><th>Ціна</th></tr>
-                </thead>
-                <tbody id="itemsList"></tbody>
-            </table>
+            <h2>📋 Items List</h2>
+            <div style="overflow-x: auto;">
+                <table id="itemsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsList">
+                        <tr><td colspan="6" style="text-align: center; color: #666;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -59,59 +222,114 @@
         async function loadItems() {
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Помилка завантаження');
+                if (!response.ok) throw new Error('Failed to load');
                 const items = await response.json();
                 const tbody = document.getElementById('itemsList');
+
+                if (items.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #666;">No items found</td></tr>`;
+                    return;
+                }
+
                 tbody.innerHTML = items.map(item => `
-                    <tr>
-                        <td>${item.id}</td>
-                        <td>${escapeHtml(item.name)}</td>
-                        <td>${item.price} ₴</td>
-                        <td><button class="delete-btn" onclick="deleteItem(${item.id})">🗑 Видалити</button></td>
-                    </tr>
-                `).join('');
+                            <tr>
+                                <td>${item.id}</td>
+                                <td class="image-cell">
+                                    ${item.imageUrl ?
+                        `<img src="${item.imageUrl}" class="item-image" alt="${escapeHtml(item.name)}">` :
+                        `<div class="no-image">No image</div>`
+                    }
+                                </td>
+                                <td><strong>${escapeHtml(item.name)}</strong></td>
+                                <td>${item.price} ₴</td>
+                                <td>${new Date(item.createdAt).toLocaleDateString('uk-UA')}</td>
+                                <td>
+                                    <button class="delete-btn" onclick="deleteItem(${item.id})">🗑 Delete</button>
+                                </td>
+                            </tr>
+                        `).join('');
             } catch (error) {
-                showMessage('Помилка завантаження списку', 'error');
+                console.error('Error loading items:', error);
+                document.getElementById('itemsList').innerHTML =
+                    `<tr><td colspan="6" style="text-align: center; color: #dc3545;">Error loading</td></tr>`;
             }
         }
 
-        async function createItem() {
+        document.getElementById('createForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
             const name = document.getElementById('name').value.trim();
-            const price = parseFloat(document.getElementById('price').value);
+            const priceInput = document.getElementById('price').value;
+            const imageFile = document.getElementById('imageFile').files[0];
 
             if (!name) {
-                showMessage('Введіть назву товару', 'error');
+                showMessage('Enter item name', 'error');
                 return;
             }
 
+            // ✅ Обработка цены: заменяем запятую на точку
+            const priceStr = priceInput.replace(',', '.');
+            const price = parseFloat(priceStr);
+
+            if (isNaN(price) || price <= 0) {
+                showMessage('Enter valid price (use . or , as decimal separator)', 'error');
+                return;
+            }
+
+            if (imageFile) {
+                const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+                if (!allowedTypes.includes(imageFile.type)) {
+                    showMessage('Only PNG, JPG, JPEG files are allowed!', 'error');
+                    return;
+                }
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Adding...';
+
             try {
+                const formData = new FormData();
+                formData.append('name', name);
+                // ✅ Отправляем цену как строку с точкой
+                formData.append('price', price.toString().replace(',', '.'));
+                if (imageFile) {
+                    formData.append('imageFile', imageFile);
+                }
+
+                console.log('Sending:', { name, price }); // Для отладки
+
                 const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, price })
+                    body: formData
                 });
 
-                if (!response.ok) throw new Error('Помилка створення');
-                
-                document.getElementById('name').value = '';
-                document.getElementById('price').value = '';
-                showMessage('Товар успішно додано!', 'success');
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create');
+                }
+
+                document.getElementById('createForm').reset();
+                showMessage('✅ Item added successfully!', 'success');
                 loadItems();
             } catch (error) {
-                showMessage('Помилка створення товару', 'error');
+                showMessage('❌ ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '➕ Add Item';
             }
-        }
+        });
 
         async function deleteItem(id) {
-            if (!confirm('Видалити цей товар?')) return;
-            
+            if (!confirm('Delete this item?')) return;
+
             try {
                 const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-                if (!response.ok) throw new Error('Помилка видалення');
-                showMessage('Товар видалено!', 'success');
+                if (!response.ok) throw new Error('Failed to delete');
+                showMessage('✅ Item deleted!', 'success');
                 loadItems();
             } catch (error) {
-                showMessage('Помилка видалення', 'error');
+                showMessage('❌ ' + error.message, 'error');
             }
         }
 
@@ -119,17 +337,16 @@
             const div = document.getElementById('formMessage');
             div.textContent = msg;
             div.className = type;
-            setTimeout(() => div.textContent = '', 3000);
+            if (type === 'success') {
+                setTimeout(() => { div.textContent = ''; div.className = ''; }, 3000);
+            }
         }
 
         function escapeHtml(str) {
             if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
         }
 
         loadItems();

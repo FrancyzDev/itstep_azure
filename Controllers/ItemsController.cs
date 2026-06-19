@@ -37,29 +37,29 @@ public class ItemsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Item>> Create([FromBody] Item item)
+    public async Task<ActionResult<Item>> Create([FromForm] ItemCreateDto itemCreateDto)
     {
-        if (string.IsNullOrWhiteSpace(item.Name))
+        if (string.IsNullOrWhiteSpace(itemCreateDto.Name))
             return BadRequest("Назва товару обов'язкова");
 
-        var createdItem = await _itemService.CreateItemAsync(item);
-        return CreatedAtAction(nameof(GetById), new { id = createdItem.Id }, createdItem);
-    }
+        if (itemCreateDto.Price <= 0)
+            return BadRequest("Ціна має бути більше 0");
 
-    [HttpPut("{id:int}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Item>> Update(int id, [FromBody] Item item)
-    {
-        if (id != item.Id)
-            return BadRequest("ID в URL та в тілі запиту не співпадають");
+        try
+        {
+            var item = new Item
+            {
+                Name = itemCreateDto.Name,
+                Price = itemCreateDto.Price
+            };
 
-        var updatedItem = await _itemService.UpdateItemAsync(id, item);
-        if (updatedItem == null)
-            return NotFound($"Елемент з ID {id} не знайдено");
-
-        return Ok(updatedItem);
+            var createdItem = await _itemService.CreateItemAsync(item, itemCreateDto.ImageFile);
+            return CreatedAtAction(nameof(GetById), new { id = createdItem.Id }, createdItem);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
     }
 
     [HttpDelete("{id:int}")]

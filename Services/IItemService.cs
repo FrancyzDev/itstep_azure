@@ -5,7 +5,6 @@ public interface IItemService
 {
     Task<IEnumerable<Item>> GetAllItemsAsync();
     Task<Item?> GetItemByIdAsync(int id);
-    Task<Item> CreateItemAsync(Item item);
-    Task<Item?> UpdateItemAsync(int id, Item item);
+    Task<Item> CreateItemAsync(Item item, IFormFile? imageFile = null);
     Task<bool> DeleteItemAsync(int id);
 }
