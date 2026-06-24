@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|c:\\users\\admin\\source\\repos\\webapplication4\\servicetranslator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|solutionrelative:servicetranslator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|c:\\users\\admin\\source\\repos\\webapplication4\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|c:\\users\\admin\\source\\repos\\webapplication4\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|c:\\users\\admin\\source\\repos\\webapplication4\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|c:\\users\\admin\\source\\repos\\webapplication4\\controllers\\translatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FB67EAC-1203-4EE3-AC4B-FB659CCB53C8}|WebApplication4.csproj|solutionrelative:controllers\\translatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ServiceTranslator.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\ServiceTranslator.cs",
+              "RelativeDocumentMoniker": "ServiceTranslator.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\ServiceTranslator.cs",
+              "RelativeToolTip": "ServiceTranslator.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBsAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-24T16:18:39.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TranslatorController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\Controllers\\TranslatorController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TranslatorController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\Controllers\\TranslatorController.cs",
+              "RelativeToolTip": "Controllers\\TranslatorController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBAAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-24T16:15:08.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-24T16:14:58.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-24T16:09:54.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WebApplication4\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-24T16:09:28.856Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
