@@ -5,29 +5,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Items Manager</title>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: #f0f2f5; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #1a73e8; text-align: center; }
-        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
-        button { background: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
-        button:hover { background: #1557b0; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #1a73e8; color: white; }
-        .delete-btn { background: #dc3545; padding: 6px 12px; font-size: 12px; }
-        .delete-btn:hover { background: #c82333; }
-        .error { color: red; margin-top: 10px; }
-        .success { color: green; margin-top: 10px; }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+            button:hover {
+                background: #1557b0;
+            }
+
+            button:disabled {
+                background: #ccc;
+                cursor: not-allowed;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+            .delete-btn:hover {
+                background: #c82333;
+            }
+
+        .translate-btn {
+            background: #28a745;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+            .translate-btn:hover {
+                background: #218838;
+            }
+
+            .translate-btn:disabled {
+                background: #ccc;
+            }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: green;
+            margin-top: 10px;
+        }
+
+        .translated-text {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #495057;
+            border-left: 3px solid #28a745;
+        }
+
+        .translate-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+            .translate-controls select {
+                width: auto;
+                padding: 5px 10px;
+                font-size: 12px;
+                flex: 1;
+                min-width: 120px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+            }
+
+            .translate-controls button {
+                margin: 0;
+                padding: 5px 12px;
+                font-size: 12px;
+            }
+
+        .item-name-cell {
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .translate-controls {
+                flex-direction: column;
+            }
+
+                .translate-controls select {
+                    width: 100%;
+                }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📦 Items Manager</h1>
-        
+
         <div class="card">
             <h2>➕ Додати новий товар</h2>
             <div class="form-group">
@@ -46,7 +200,7 @@
             <h2>📋 Список товарів</h2>
             <table id="itemsTable">
                 <thead>
-                    <tr><th>ID</th><th>Назва</th><th>Опис</th><th>Ціна</th></tr>
+                    <tr><th>ID</th><th>Назва</th><th>Ціна</th><th>Переклад</th><th>Дії</th></tr>
                 </thead>
                 <tbody id="itemsList"></tbody>
             </table>
@@ -55,6 +209,7 @@
 
     <script>
         const API_URL = window.location.origin + '/api/items';
+        const TRANSLATE_API_URL = window.location.origin + '/api/translator';
 
         async function loadItems() {
             try {
@@ -63,13 +218,34 @@
                 const items = await response.json();
                 const tbody = document.getElementById('itemsList');
                 tbody.innerHTML = items.map(item => `
-                    <tr>
-                        <td>${item.id}</td>
-                        <td>${escapeHtml(item.name)}</td>
-                        <td>${item.price} ₴</td>
-                        <td><button class="delete-btn" onclick="deleteItem(${item.id})">🗑 Видалити</button></td>
-                    </tr>
-                `).join('');
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td class="item-name-cell">${escapeHtml(item.name)}</td>
+                                        <td>${item.price} ₴</td>
+                                        <td>
+                                            <div id="translation-${item.id}">
+                                                <div class="translate-controls">
+                                                    <select id="lang-${item.id}">
+                                                        <option value="en">English</option>
+                                                        <option value="ru">Русский</option>
+                                                        <option value="fr">Français</option>
+                                                        <option value="de">Deutsch</option>
+                                                        <option value="es">Español</option>
+                                                        <option value="pl">Polski</option>
+                                                        <option value="cs">Čeština</option>
+                                                    </select>
+                                                    <button class="translate-btn" onclick="translateItem(${item.id})">
+                                                        🔄 Перекласти
+                                                    </button>
+                                                </div>
+                                                <div id="translation-result-${item.id}" class="translated-text" style="display:none;"></div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="delete-btn" onclick="deleteItem(${item.id})">🗑 Видалити</button>
+                                        </td>
+                                    </tr>
+                                `).join('');
             } catch (error) {
                 showMessage('Помилка завантаження списку', 'error');
             }
@@ -84,6 +260,11 @@
                 return;
             }
 
+            if (isNaN(price) || price < 0) {
+                showMessage('Введіть коректну ціну', 'error');
+                return;
+            }
+
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -92,7 +273,7 @@
                 });
 
                 if (!response.ok) throw new Error('Помилка створення');
-                
+
                 document.getElementById('name').value = '';
                 document.getElementById('price').value = '';
                 showMessage('Товар успішно додано!', 'success');
@@ -102,9 +283,73 @@
             }
         }
 
+        async function translateItem(id) {
+            const langSelect = document.getElementById(`lang-${id}`);
+            const toLanguage = langSelect.value;
+            const resultDiv = document.getElementById(`translation-result-${id}`);
+            const btn = document.querySelector(`#translation-${id} .translate-btn`);
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`);
+                if (!response.ok) throw new Error('Помилка отримання даних товару');
+                const item = await response.json();
+
+                const textToTranslate = item.name;
+                if (!textToTranslate) {
+                    resultDiv.textContent = 'Немає тексту для перекладу';
+                    resultDiv.style.display = 'block';
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = '⏳ Переклад...';
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'Перекладається...';
+
+                const translateResponse = await fetch(TRANSLATE_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        Text: textToTranslate,
+                        ToLanguage: toLanguage
+                    })
+                });
+
+                if (!translateResponse.ok) {
+                    const errorText = await translateResponse.text();
+                    throw new Error(`Помилка перекладу: ${errorText}`);
+                }
+
+                const result = await translateResponse.json();
+
+                let translatedText = result.translated;
+
+                try {
+                    const parsed = JSON.parse(translatedText);
+                    if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].translations) {
+                        translatedText = parsed[0].translations[0].text;
+                    }
+                } catch (e) {}
+
+                resultDiv.innerHTML = `🌐 <strong>Переклад:</strong> ${escapeHtml(translatedText)}`;
+                resultDiv.style.display = 'block';
+
+                btn.disabled = false;
+                btn.textContent = '🔄 Перекласти';
+
+            } catch (error) {
+                btn.disabled = false;
+                btn.textContent = '🔄 Перекласти';
+                resultDiv.textContent = `❌ ${error.message}`;
+                resultDiv.style.display = 'block';
+                console.error('Translation error:', error);
+            }
+        }
+
+
         async function deleteItem(id) {
             if (!confirm('Видалити цей товар?')) return;
-            
+
             try {
                 const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
                 if (!response.ok) throw new Error('Помилка видалення');
@@ -124,7 +369,7 @@
 
         function escapeHtml(str) {
             if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
+            return str.replace(/[&<>]/g, function (m) {
                 if (m === '&') return '&amp;';
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
